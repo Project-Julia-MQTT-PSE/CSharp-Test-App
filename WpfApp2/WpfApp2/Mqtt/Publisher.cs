@@ -12,15 +12,16 @@ namespace WpfApp2.Mqtt
     class Publisher
     {
         private MqttClient _broker = null;
-        private string _id = Guid.NewGuid().ToString();
-        public Publisher(string IP)
+        public Publisher()
         {
-            _broker = new MqttClient(IP);
-            _broker.Connect(_id);
         }
-        public Publisher(string topic, byte[] message)
+        public MqttClient Broker { set { _broker = value; } }
+        public void Publish(string topic, byte[] message)
         {
-            _broker.Publish(topic, message);
+            if (_broker != null)
+            {
+                _broker.Publish(topic, message);
+            }
         }
     }
 }
